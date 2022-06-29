@@ -8,3 +8,8 @@ Bundler.require(:default, ENV['RACK_ENV'])
 
 # Require in all files in 'app' directory
 require_all 'app'
+
+#Requre OpenURI for JSON Requests
+require 'open-uri'
+require 'net/http'
+require 'json'
