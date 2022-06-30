@@ -3,6 +3,7 @@ class CreateEmployeesTable < ActiveRecord::Migration[6.1]
     create_table :employees do |t|
       t.string :employee_name
       t.text :address
+      t.string :email
       t.string :phone_number
       t.integer :wage
       t.integer :hours_worked

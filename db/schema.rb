@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_203656) do
   create_table "employees", force: :cascade do |t|
     t.string "employee_name"
     t.text "address"
+    t.string "email"
     t.string "phone_number"
     t.integer "wage"
     t.integer "hours_worked"

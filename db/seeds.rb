@@ -1,4 +1,4 @@
-puts "🌱 Seeding spices..."
+puts "🌱 Seeding..."
 
 # Seed your database here
 
@@ -6,6 +6,7 @@ puts "🌱 Seeding spices..."
 10.times do 
   Employee.create({
     employee_name: Faker::Name.name,
+    email: Faker::Internet.email ,
     address: Faker::Address.full_address,
     phone_number: Faker::PhoneNumber.phone_number,
     wage: Faker::Number.number(digits: 2),
@@ -35,7 +36,7 @@ uri = URI.parse(URL)
   res = Net::HTTP.get_response(uri)
   random = JSON.parse(res.body)
   dog_img = random["message"]
-
+  
   random = rand(1..15)
   Dog.create({
     dog_name: Faker::Creature::Dog.name ,
@@ -50,12 +51,13 @@ end
 # time HH:MM:SS
 # date YYYY-MM-DD
 10.times do
+  random_dog = rand(1..20)
   Appointment.create({
     time: "12:30:01" ,
     date: "2022-08-06" ,
     walk_duration: 30 ,
-    dog_id: rand(1..20) ,
-    employee_id: rand(1..10) ,
+    dog_id: random_dog ,
+    employee_id: rand(1..10) 
   })
 end 
 
