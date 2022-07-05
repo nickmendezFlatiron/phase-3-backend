@@ -12,9 +12,9 @@ class ApplicationController < Sinatra::Base
   end 
 
   get "/all" do
-    owner = Owner.all
-    dog = Dog.all 
-    employee = Employee.all
+    owner = Owner.order(:owner_name).all
+    dog = Dog.order(:dog_name).all 
+    employee = Employee.order(:employee_name).all
     appointment = Appointment.all
 
     

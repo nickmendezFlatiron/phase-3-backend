@@ -57,7 +57,7 @@ end
     date: "2022-08-06" ,
     walk_duration: 30 ,
     dog_id: random_dog ,
-    employee_id: rand(1..10) 
+    employee_id: rand(1..10),
   })
 end 
 
