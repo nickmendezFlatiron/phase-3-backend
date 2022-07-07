@@ -54,7 +54,7 @@ end
   random_dog = rand(1..20)
   Appointment.create({
     time: "12:30:01" ,
-    date: "2022-08-06" ,
+    date: "2022-08-#{random_dog}" ,
     walk_duration: 30 ,
     dog_id: random_dog ,
     employee_id: rand(1..10),
