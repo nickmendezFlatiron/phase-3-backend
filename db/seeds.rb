@@ -52,10 +52,14 @@ end
 # date YYYY-MM-DD
 10.times do
   random_dog = rand(1..20)
+
+  dog = Dog.find(random_dog)
+  
   Appointment.create({
-    time: "12:30:01" ,
-    date: "2022-08-#{random_dog}" ,
+    start: "2022-08-#{random_dog} #{random_dog}:00:01" ,
+    end: "2022-08-#{random_dog} #{random_dog}:30:01" ,
     walk_duration: 30 ,
+    title: dog[:dog_name] ,
     dog_id: random_dog ,
     employee_id: rand(1..10),
   })

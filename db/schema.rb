@@ -13,9 +13,12 @@
 ActiveRecord::Schema.define(version: 2022_06_28_203656) do
 
   create_table "appointments", force: :cascade do |t|
-    t.time "time"
-    t.date "date"
+    t.datetime "start"
+    t.datetime "end"
     t.integer "walk_duration"
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "dog_id"
     t.integer "employee_id"
     t.index ["dog_id"], name: "index_appointments_on_dog_id"

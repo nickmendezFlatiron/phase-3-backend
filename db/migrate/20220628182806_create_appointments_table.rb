@@ -1,11 +1,12 @@
 class CreateAppointmentsTable < ActiveRecord::Migration[6.1]
   def change
     create_table :appointments do |t|
-      # time HH:MM:SS
-      t.time :time
-      # date YYYY-MM-DD
-      t.date :date
+      # YYYY-MM-DD HH:MM:SS
+      t.datetime :start
+      t.datetime :end
       t.integer :walk_duration
+      t.string :title
+      t.timestamps
     end
   end
 end 

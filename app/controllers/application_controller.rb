@@ -25,15 +25,23 @@ class ApplicationController < Sinatra::Base
     }.to_json
   end 
 
+  get "/appointments" do
+    appointment = Appointment.all
+    appointment.to_json(include: :dogs)
+  end 
+
   # Post Requests
   post '/appointments' do
+    dog_name = Dog.find(params[:dog_id])
     new_appointment = Appointment.create({
       dog_id: params[:dog_id] ,
       employee_id: params[:employee_id] , 
       walk_duration: params[:walk_duration] ,
-      date: params[:date] ,
-      time: params[:time]
+      start: params[:start] ,
+      end: params[:end] ,
+      title: dog_name[:dog_name]
     })
+
     new_appointment.to_json
   end
 end
