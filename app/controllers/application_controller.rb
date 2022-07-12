@@ -8,26 +8,13 @@ class ApplicationController < Sinatra::Base
 
   get "/owners" do
     owner = Owner.all
-    owner.to_json(include: :dogs)
+    owner.to_json(include: { dogs: { include: :appointments }})
   end 
 
-  get "/all" do
-    owner = Owner.order(:owner_name).all(include: :dogs)
-    dog = Dog.order(:dog_name).all 
-    employee = Employee.order(:employee_name).all
-    appointment = Appointment.all
-
-    
-    { dogs: dog ,
-      owners: owner , 
-      employees: employee ,
-      appointments: appointment
-    }.to_json
-  end 
 
   get "/appointments" do
     appointment = Appointment.all
-    appointment.to_json(include: :dogs)
+    appointment.to_json
   end 
 
   # Post Requests
