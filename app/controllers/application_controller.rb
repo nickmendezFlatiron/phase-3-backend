@@ -38,4 +38,12 @@ class ApplicationController < Sinatra::Base
     appointment.to_json
   end 
 
+  # Patch Requests (update)
+  patch '/appointments/:id' do
+    appointment = Appointment.find(params[:id])
+    appointment.update({
+      employee_id: params[:employee_id]
+    })
+    appointment.to_json
+  end
 end
