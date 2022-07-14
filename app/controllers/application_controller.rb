@@ -16,6 +16,7 @@ class ApplicationController < Sinatra::Base
     employee.to_json
   end 
 
+
   # Post Requests
   post '/appointments' do
     dog_name = Dog.find(params[:dog_id])
@@ -42,7 +43,8 @@ class ApplicationController < Sinatra::Base
   patch '/appointments/:id' do
     appointment = Appointment.find(params[:id])
     appointment.update({
-      employee_id: params[:employee_id]
+      employee_id: params[:employee_id] ,
+      walk_duration: params[:walk_duration]
     })
     appointment.to_json
   end
