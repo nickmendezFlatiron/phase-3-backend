@@ -17,8 +17,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_203656) do
     t.datetime "end"
     t.integer "walk_duration"
     t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "isComplete", default: false
     t.integer "dog_id"
     t.integer "employee_id"
     t.index ["dog_id"], name: "index_appointments_on_dog_id"
@@ -27,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_203656) do
 
   create_table "dogs", force: :cascade do |t|
     t.string "dog_name"
-    t.string "dog_image"
+    t.string "dog_image", default: "./src/assets/stock.jpg"
     t.integer "dog_weight"
     t.integer "owner_id"
     t.index ["owner_id"], name: "index_dogs_on_owner_id"
@@ -38,9 +37,12 @@ ActiveRecord::Schema.define(version: 2022_06_28_203656) do
     t.text "address"
     t.string "email"
     t.string "phone_number"
-    t.integer "wage"
-    t.integer "hours_worked"
     t.string "position"
+    t.decimal "wage"
+    t.decimal "hours_worked"
+    t.boolean "isClocked", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "owners", force: :cascade do |t|

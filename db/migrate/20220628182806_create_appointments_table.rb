@@ -6,7 +6,7 @@ class CreateAppointmentsTable < ActiveRecord::Migration[6.1]
       t.datetime :end
       t.integer :walk_duration
       t.string :title
-      t.timestamps
+      t.boolean :isComplete , default: 0
     end
   end
 end 

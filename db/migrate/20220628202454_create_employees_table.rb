@@ -5,9 +5,11 @@ class CreateEmployeesTable < ActiveRecord::Migration[6.1]
       t.text :address
       t.string :email
       t.string :phone_number
-      t.integer :wage
-      t.integer :hours_worked
       t.string :position
+      t.decimal :wage
+      t.decimal :hours_worked 
+      t.boolean :isClocked , default: 0
+      t.timestamps
     end 
   end
 end

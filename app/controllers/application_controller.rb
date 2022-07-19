@@ -1,5 +1,6 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
+ 
   
   get "/owners" do
     owner = Owner.all
@@ -19,8 +20,9 @@ class ApplicationController < Sinatra::Base
 
   # Post Requests
   post '/appointments' do
+    
     dog_name = Dog.find(params[:dog_id])
-    new_appointment = Appointment.create({
+    new_appointment = Appointment.find_or_create_by({
       dog_id: params[:dog_id] ,
       employee_id: params[:employee_id] , 
       walk_duration: params[:walk_duration] ,
@@ -30,6 +32,17 @@ class ApplicationController < Sinatra::Base
     })
 
     new_appointment.to_json
+  end
+
+  post '/dogs' do
+
+    new_dog = Dog.create({
+      dog_name: params[:dog_name] ,
+      dog_image: params[:dog_image] ,
+      dog_weight: params[:dog_weight] ,
+      owner_id: params[:owner_id]
+    })
+    new_dog.to_json
   end
 
   # Delete Requests
@@ -48,4 +61,6 @@ class ApplicationController < Sinatra::Base
     })
     appointment.to_json
   end
+
+  
 end
