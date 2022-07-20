@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_203656) do
     t.string "position"
     t.decimal "wage"
     t.decimal "hours_worked"
-    t.boolean "isClocked", default: false
+    t.decimal "hours_ytd"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -8,7 +8,7 @@ class CreateEmployeesTable < ActiveRecord::Migration[6.1]
       t.string :position
       t.decimal :wage
       t.decimal :hours_worked 
-      t.boolean :isClocked , default: 0
+      t.decimal :hours_ytd
       t.timestamps
     end 
   end

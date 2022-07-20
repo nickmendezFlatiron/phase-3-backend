@@ -17,6 +17,11 @@ class ApplicationController < Sinatra::Base
     employee.to_json
   end 
 
+  get '/employees' do
+    employee = Employee.all
+    employee.to_json(include: :appointments)
+  end 
+
 
   # Post Requests
   post '/appointments' do
@@ -60,6 +65,10 @@ class ApplicationController < Sinatra::Base
     appointment = Appointment.find(params[:id])
     appointment.destroy
     appointment.to_json
+  end 
+
+  delete '/dogs/:id' do
+
   end 
 
   # Patch Requests (update)

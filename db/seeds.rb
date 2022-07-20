@@ -11,6 +11,7 @@ puts "🌱 Seeding..."
     phone_number: Faker::PhoneNumber.phone_number,
     wage: Faker::Number.number(digits: 2),
     hours_worked: Faker::Number.number(digits: 2),
+    hours_ytd: Faker::Number.number(digits: 3),
     position: "walker" 
   })
 end 
@@ -23,6 +24,7 @@ end
     phone_number: Faker::PhoneNumber.phone_number,
     wage: Faker::Number.number(digits: 2),
     hours_worked: Faker::Number.number(digits: 2),
+    hours_ytd: Faker::Number.number(digits: 3),
     position: Faker::Job.title
   })
 end 
