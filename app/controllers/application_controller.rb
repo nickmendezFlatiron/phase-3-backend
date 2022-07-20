@@ -22,16 +22,26 @@ class ApplicationController < Sinatra::Base
   post '/appointments' do
     
     dog_name = Dog.find(params[:dog_id])
-    new_appointment = Appointment.find_or_create_by({
-      dog_id: params[:dog_id] ,
-      employee_id: params[:employee_id] , 
-      walk_duration: params[:walk_duration] ,
-      start: params[:start] ,
-      end: params[:end] ,
-      title: dog_name[:dog_name]
-    })
+    employee_name = Employee.find(params[:employee_id])
 
-    new_appointment.to_json
+    exist = Appointment.where({
+      start: params[:start] , 
+      dog_id: params[:dog_id]
+      }).or(Appointment.where({start: params[:start] , employee_id: params[:employee_id]}))
+
+      if exist.length < 1
+        new_appointment = Appointment.find_or_create_by({
+          dog_id: params[:dog_id] ,
+          employee_id: params[:employee_id] , 
+          walk_duration: params[:walk_duration] ,
+          start: params[:start] ,
+          end: params[:end] ,
+          title: dog_name[:dog_name]
+        })
+        new_appointment.to_json
+      else
+        {error: "Appointment unsuccessful ,schedule conflict with either #{dog_name[:dog_name]} or #{employee_name[:employee_name]}"}.to_json
+      end 
   end
 
   post '/dogs' do

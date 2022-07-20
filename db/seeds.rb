@@ -71,7 +71,7 @@ end
   exist = Appointment.where({start: "2022-08-#{random_date} #{random_date}:00:01" , dog_id: random_dog}).or(Appointment.where({start: "2022-08-#{random_date} #{random_date}:00:01" , employee_id: random_employee}))
 
   if exist.length < 1
-   Appointment.create({start: "2022-08-#{random_date} #{random_date}:00:01" , end: "2022-08-#{random_dog} #{random_dog}:30:01" , walk_duration: 30 , title: dog[:dog_name] , dog_id: random_dog , employee_id: random_employee})
+   Appointment.create({start: "2022-08-#{random_date} #{random_date}:00:01" , end: "2022-08-#{random_date} #{random_date}:30:01" , walk_duration: 30 , title: dog[:dog_name] , dog_id: random_dog , employee_id: random_employee})
   end
 
    
