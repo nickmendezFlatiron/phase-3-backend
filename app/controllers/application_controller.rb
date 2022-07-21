@@ -81,5 +81,11 @@ class ApplicationController < Sinatra::Base
     appointment.to_json
   end
 
-  
+  patch '/employees/:id' do 
+    employee = Employee.find(params[:id])
+    employee.update({
+      hours_worked: params[:hours_worked]
+    })
+    employee.to_json(include: :appointments)
+  end
 end

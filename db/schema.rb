@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_203656) do
     t.datetime "end"
     t.integer "walk_duration"
     t.string "title"
-    t.boolean "isComplete", default: false
+    t.boolean "is_complete", default: false
     t.integer "dog_id"
     t.integer "employee_id"
     t.index ["dog_id"], name: "index_appointments_on_dog_id"
