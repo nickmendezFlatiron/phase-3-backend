@@ -74,11 +74,18 @@ class ApplicationController < Sinatra::Base
   # Patch Requests (update)
   patch '/appointments/:id' do
     appointment = Appointment.find(params[:id])
-    appointment.update({
-      employee_id: params[:employee_id] ,
-      walk_duration: params[:walk_duration]
-    })
-    appointment.to_json
+    employee = Employee.find(params[:employee_id])
+    exist = Appointment.where({start: appointment[:start] , employee_id: params[:employee_id]})
+    
+    if exist.exists? 
+      { error: "Update unsuccessful ,#{employee[:employee_name]} has appointment scheduled at that time" }.to_json
+    else
+      appointment.update({
+        employee_id: params[:employee_id] ,
+        walk_duration: params[:walk_duration]
+      })
+      appointment.to_json
+    end
   end
 
   patch '/employees/:id' do 
