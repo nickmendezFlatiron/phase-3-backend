@@ -34,19 +34,22 @@ class ApplicationController < Sinatra::Base
       dog_id: params[:dog_id]
       }).or(Appointment.where({start: params[:start] , employee_id: params[:employee_id]}))
 
-      if exist.length < 1
-        new_appointment = Appointment.find_or_create_by({
-          dog_id: params[:dog_id] ,
-          employee_id: params[:employee_id] , 
-          walk_duration: params[:walk_duration] ,
-          start: params[:start] ,
-          end: params[:end] ,
-          title: dog_name[:dog_name]
-        })
-        new_appointment.to_json
-      else
-        {error: "Appointment unsuccessful ,schedule conflict with either #{dog_name[:dog_name]} or #{employee_name[:employee_name]}"}.to_json
-      end 
+    appt_in_progress_dogs = Appointment.all.find_all {|a| a[:dog_id] == params[:dog_id]}.find_all {|a| params[:start].between?(a[:start] , a[:end])}
+    appt_in_progress_walkers = Appointment.all.find_all {|a| a[:employee_id] == params[:employee_id]}.find_all {|a| params[:start].between?(a[:start] , a[:end])}
+
+    if !exist.exists? && [*appt_in_progress_dogs,*appt_in_progress_walkers].length < 1
+      new_appointment = Appointment.create({
+        dog_id: params[:dog_id] ,
+        employee_id: params[:employee_id] , 
+        walk_duration: params[:walk_duration] ,
+        start: params[:start] ,
+        end: params[:end] ,
+        title: dog_name[:dog_name]
+      })
+      new_appointment.to_json
+    else
+      {error: "Appointment unsuccessful ,schedule conflict with either #{dog_name[:dog_name]} or #{employee_name[:employee_name]}"}.to_json
+    end 
   end
 
   post '/dogs' do
@@ -74,15 +77,20 @@ class ApplicationController < Sinatra::Base
   # Patch Requests (update)
   patch '/appointments/:id' do
     appointment = Appointment.find(params[:id])
+
     employee = Employee.find(params[:employee_id])
+
     exist = Appointment.where({start: appointment[:start] , employee_id: params[:employee_id]})
+
+    appt_in_progress_walkers = Appointment.all.find_all {|a| a[:employee_id] == params[:employee_id]}.find_all {|a| params[:start].between?(a[:start] , a[:end])}
     
-    if exist.exists? 
-      { error: "Update unsuccessful ,#{employee[:employee_name]} has appointment scheduled at that time" }.to_json
+    if exist.exists? || [*appt_in_progress_walkers].length > 0
+      { error: "Update unsuccessful , #{employee[:employee_name]} has appointment scheduled for that date/time." }.to_json
     else
       appointment.update({
         employee_id: params[:employee_id] ,
-        walk_duration: params[:walk_duration]
+        walk_duration: params[:walk_duration] ,
+        end: params[:end]
       })
       appointment.to_json
     end
