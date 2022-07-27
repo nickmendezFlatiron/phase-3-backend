@@ -70,10 +70,6 @@ class ApplicationController < Sinatra::Base
     appointment.to_json
   end 
 
-  delete '/dogs/:id' do
-
-  end 
-
   # Patch Requests (update)
   patch '/appointments/:id' do
     appointment = Appointment.find(params[:id])
